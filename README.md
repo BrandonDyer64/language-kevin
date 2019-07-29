@@ -1,10 +1,10 @@
 Lua language support in Atom
 ======
 
-Add syntax highlighting and snippets to Lua files in Atom.
+Add syntax highlighting and snippets to Kevin files in Atom.
 
-See: https://atom.io/packages/language-lua
-and: https://www.npmjs.com/package/language-lua
+See: https://atom.io/packages/language-kevin
+and: https://www.npmjs.com/package/language-kevin
 
 Common snippets
 ---
@@ -83,8 +83,8 @@ Math function snippets
 
 Author
 ------
-__Jorge Garrido Oval__
-* [https://github.com/FireZenk](https://github.com/FireZenk)
+**Brandon Dyer**
+* [https://github.com/BrandonDyer64](https://github.com/BrandonDyer64)
 
 
 Contributors
@@ -95,7 +95,4 @@ pull request to add snippets, make grammar tweaks, etc.
 
 License
 ------
-Atom language-lua is released under the MIT license.
-
->Originally [converted](http://atom.io/docs/latest/converting-a-text-mate-bundle)
-from the [Lua TextMate bundle](https://github.com/textmate/lua.tmbundle).
+Atom language-kevin is released under the MIT license.
