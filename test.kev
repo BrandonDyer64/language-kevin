@@ -1,7 +1,11 @@
-fn ia Factorial(i32 n) =>
-  [1 .. n + 1] reduce ac, i =>
-    ac * i; /* test */
+
+fn ia Factorial(i32 n):
+  [1 .. n + 1] reduce ac, i:
+    ac * i;
 
 fn Type FunctionName(args) {
   let mut i32 a = 4;
+} test {
+  (4) -> 3
+  (5) -> 6
 }

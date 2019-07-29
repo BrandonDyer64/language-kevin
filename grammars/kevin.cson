@@ -2,7 +2,7 @@
 'fileTypes': [
   'kev'
 ]
-'firstLineMatch': '\\A#!.*?\\blua\\b'
+'firstLineMatch': '\\A#!.*?\\bkevin\\b'
 'name': 'Kevin'
 'patterns': [
   {

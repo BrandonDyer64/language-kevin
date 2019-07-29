@@ -1,4 +1,4 @@
-Lua language support in Atom
+Kevin language support in Atom
 ======
 
 Add syntax highlighting and snippets to Kevin files in Atom.
