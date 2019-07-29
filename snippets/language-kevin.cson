@@ -1,19 +1,16 @@
-'.source.lua':
+'.source.kevin':
   'multiline comment':
-    'prefix': '-['
-    'body': '--[[ ${0:comment...}]'
-  'nested multiline comment':
-    'prefix': '=['
-    'body': '--[=[ ${0:comment...}]='
+    'prefix': 'comment'
+    'body': '/*\n * ${0:comment...}\n */'
   'function':
-    'prefix': 'fun'
-    'body': 'function ${1:FunctionName} (${2:args})\n\t${0:-- body...}\nend'
+    'prefix': 'fn'
+    'body': 'fn ${3:Type} ${1:FunctionName}(${2:args}) {\n\t${0:// body...}\n}'
   'anon function':
     'prefix': 'afun'
-    'body': '${1:FunctionName} = function (${2:args})\n\t${0:-- body...}\nend'
-  'while loop':
-    'prefix': 'while'
-    'body': 'while ${1:condition} do\n\t${0:-- body...}\nend'
+    'body': '${1:FunctionName} = (${2:args}) {\n\t${0:// body...}\n}'
+  'map loop':
+    'prefix': 'map'
+    'body': 'map i => ${0:/* body... */};\n'
   'while loop shortcut':
     'prefix': 'whi'
     'body': 'while ${1:condition} do\n\t${0:-- body...}\nend'
@@ -34,7 +31,7 @@
     'body': 'for ${1:k},${2:v} in pairs(${3:table_name}) do\n\t${0:-- body...}\nend'
   'local function':
     'prefix': 'lfun'
-    'body': 'local function ${1:FunctionName} (${2:args})\n\t${0:-- body...}\nend'  
+    'body': 'local function ${1:FunctionName} (${2:args})\n\t${0:-- body...}\nend'
   'local variable definition':
     'prefix': 'local'
     'body': 'local ${1:x} = ${0:1}'
@@ -53,9 +50,9 @@
   'print':
     'prefix': 'print'
     'body': 'print("${0:logging}")'
-  'require':
-    'prefix': 'require'
-    'body': 'local ${0:name} = require "${1:module}"'
+  'import':
+    'prefix': 'import'
+    'body': 'import ${0:name} from "${1:module}"'
   'require shortcut':
     'prefix': 'req'
     'body': 'local ${0:name} = require "${1:module}"'
