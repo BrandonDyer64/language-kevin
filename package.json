@@ -1,6 +1,6 @@
 {
   "name": "language-kevin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "author": "Brandon Dyer <brandondyer64@gmail.com>",
   "description": "Add syntax highlighting and snippets to Kevin files in Atom",
