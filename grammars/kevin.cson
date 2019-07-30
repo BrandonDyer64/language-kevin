@@ -129,11 +129,11 @@
     ]
   }
   {
-    'match': '\\b(let|var|mut|watch|break|else|map|loop|reduce|if|return|while|local|in|test|import|from)\\b'
+    'match': '\\b(let|var|mut|watch|break|else|map|loop|reduce|each|if|return|while|local|in|test|import|from|export|async|wait|eject)\\b'
     'name': 'keyword.control.kevin'
   }
   {
-    'match': '(?<![^.]\\.|:)\\b([A-Z_]+|false|null|true|math\\.(pi|huge))\\b|(?<![.])\\.{3}(?!\\.)'
+    'match': '\\b(false|null|true)\\b|(?<![.])\\.{2}(?!\\.)|(?<![:])\\:[a-z_]+'
     'name': 'constant.language.kevin'
   }
   {
@@ -157,7 +157,7 @@
     'name': 'variable.other.kevin'
   }
   {
-    'match': '\\+|-|%|#|\\*|\\/|\\^|==?|!=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.)'
+    'match': '\\+|-|%|#|\\*|\\/|\\^|==?|!=|<=?|>=?|\\|>|(?<!\\.)\\.{2}(?!\\.)'
     'name': 'keyword.operator.kevin'
   }
 ]
