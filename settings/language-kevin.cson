@@ -1,0 +1,9 @@
+'.source.kevin':
+  'editor':
+    'commentStart': '// '
+    'increaseIndentPattern': '((\\{\\s*)|(\\=\\>))$'
+    'decreaseIndentPattern': '^\\s*((\\})|(\\)))'
+    'foldEndPattern': '^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*end$'
+    'tabLength': 4
+    'softTabs': true
+    'preferredLineLength': 100

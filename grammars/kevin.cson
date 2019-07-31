@@ -19,8 +19,17 @@
         'name': 'variable.parameter.function.kevin'
       '6':
         'name': 'punctuation.definition.parameters.end.kevin'
-    'match': '\\b(fn)(?:\\s+([a-zA-Z0-9]+ )?([A-Z][a-zA-Z]\\w*)\\s*)?(\\()([^)]*)(\\))'
+    'match': '\\b(fn)(?:\\s+([a-zA-Z0-9!*?]+\\s+)?([a-zA-Z][a-zA-Z0-9_]+)\\s*)?(\\()([^)]*)(\\))'
     'name': 'meta.function.kevin'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.control.kevin'
+      '2':
+        'name': 'support.storage.type.kevin'
+    'match': '\\b(box)(\\s+[A-Z][a-zA-Z0-9]+)'
+    'name': 'meta.box.kevin'
   }
   {
     'match': '(?<![\\d.])\\s0x[a-fA-F\\d]+|\\b\\d+(\\.\\d+)?([eE]-?\\d+)?|\\.\\d+([eE]-?\\d+)?'
@@ -124,21 +133,21 @@
           '0':
             'name': 'punctuation.definition.comment.kevin'
         'end': '\\n'
-        'name': 'comment.line.double-dash.kevin'
+        'name': 'comment.line.kevin'
       }
     ]
   }
   {
-    'match': '\\b(let|var|mut|watch|break|else|map|loop|reduce|each|if|return|while|local|in|test|import|from|export|async|wait|eject)\\b'
+    'match': '\\b(unsafe\\b[^\\n]*)'
+    'name': 'variable.language.self'
+  }
+  {
+    'match': '\\b(let|var|mut|watch|break|else|map|loop|reduce|each|compute|if|switch|return|filter|in|test|import|from|export|async|wait|eject|atom)\\b'
     'name': 'keyword.control.kevin'
   }
   {
     'match': '\\b(false|null|true)\\b|(?<![.])\\.{2}(?!\\.)|(?<![:])\\:[a-z_]+'
     'name': 'constant.language.kevin'
-  }
-  {
-    'match': '(?<![^.]\\.|:)\\b(self)\\b'
-    'name': 'variable.language.self.kevin'
   }
   {
     'match': '(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?=\\s*(?:[({"\']|\\[\\[))'
@@ -149,7 +158,7 @@
     'name': 'support.function.library.kevin'
   }
   {
-    'match': '\\b([A-Za-z_]\\w*)\\b(?=\\s*(?:[({"\']|\\[\\[))'
+    'match': '\\b([A-Z][A-Za-z0-9:]*)\\b(?=\\s*(?:[({"\']|\\[\\[))'
     'name': 'support.function.any-method.kevin'
   }
   {
@@ -157,7 +166,7 @@
     'name': 'variable.other.kevin'
   }
   {
-    'match': '\\+|-|%|#|\\*|\\/|\\^|==?|!=|<=?|>=?|\\|>|(?<!\\.)\\.{2}(?!\\.)'
+    'match': '\\+|-|%|#|&|\\*|\\/|\\^|==?|!=|<=?|>=?|\\|>|(?<!\\.)\\.{2}(?!\\.)'
     'name': 'keyword.operator.kevin'
   }
 ]

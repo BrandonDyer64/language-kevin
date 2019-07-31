@@ -1,11 +1,129 @@
+import Glad from "./Glad"
+import GLFW from "./GLFW"
+import Mat4x4 from "./Mat4x4"
+import Console from "Console"
 
-fn ia Factorial(i32 n):
-  [1 .. n + 1] reduce ac, i:
-    ac * i;
+box Vertex {
+    f32 x, y;
+    f32 r, g, b;
+    (f32 x, f32 y, f32 r, f32 g, f32 b) => {
+        x, y, r, g, b
+    };
+}
 
-fn Type FunctionName(args) {
-  let mut i32 a = 4;
-} test {
-  (4) -> 3
-  (5) -> 6
+let vertices = [
+    Vertex(-0.6f32, -0.4f32, 1f32, 0f32, 0f32),
+    Vertex(0.6f32, -0.4f32, 0f32, 1f32, 0f32),
+    Vertex(0f32,  0.6f32, 0f32, 0f32, 1f32)
+];
+
+let vertex_shader_text = """
+    #version 110
+    uniform mat4 MVP;
+    attribute vec3 vCol;
+    attribute vec2 vPos;
+    varying vec3 color;
+    void main()
+    {
+        gl_Position = MVP * vec4(vPos, 0.0, 1.0);
+        color = vCol;
+    }
+""";
+
+let fragment_shader_text = """
+    #version 110
+    varying vec3 color;
+    void main()
+    {
+        gl_FragColor = vec4(color, 1.0);
+    }
+""";
+
+fn ErrorCallback(i32 error, char* description) {
+    let description_str = String(description);
+    Console::Print("Error: ${description_str}");
+}
+
+fn KeyCallback(GLFW::Window* window, i32 key, i32 scancode, i32 action, i32 mods) {
+    if (key == GLFW::key_escape && action == GLFW::press) {
+        GLFW::SetShouldWindowClose(window);
+    }
+}
+
+fn symbol Main([String] args) {
+    GLFW::SetErrorCallback(ErrorCallback);
+
+    if !GLFW::Init() return :error;
+
+    GLFW::WindowHint(GLFW::Bit(:context_version_major), 2);
+    GLFW::WindowHint(GLFW::Bit(:context_version_minor), 0);
+
+    let window = GLFW::CreateWindow(640, 480, "Simple Example", null, null)!
+        eject {
+            GLFW::Terminate();
+            return :error;
+        };
+
+    GLFW::SetKeyCallback(window, KeyCallback);
+
+    GLFW::MakeContextCurrent(window);
+    GLAD::LoadGL(GLFW::GetProcAddress);
+    GLFW::SwapInterval(1);
+
+    // Note: OpenGL error checks have been omitted for brevity
+
+    var vertex_buffer = GLAD::GLuint(0);
+
+    GLAD::GenBuffers(1, &vertex_buffer);
+    GLAD::BindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+    GLAD::BufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    let vertex_shader = GLAD::CreateShader(GLFW::Bit(:vertex_shader));
+    GLAD::ShaderSource(vertex_shader, 1, &vertex_shader_text.data, null);
+    GLAD::CompileShader(vertex_shader);
+    let fragment_shader = GLAD::CreateShader(GLFW::Bit(:fragment_shader));
+    GLAD::ShaderSource(fragment_shader, 1, &fragment_shader_text.data, null);
+    GLAD::CompileShader(fragment_shader);
+    let program = GLAD::CreateProgram();
+    GLAD::AttachShader(program, vertex_shader);
+    GLAD::AttachShader(program, fragment_shader);
+    GLAD::LinkProgram(program);
+    let mvp_location = GLAD::GetUniformLocation(program, "MVP");
+    let vpos_location = GLAD::GetAttribLocation(program, "vPos");
+    let vcol_location = GLAD::GetAttribLocation(program, "vCol");
+    GLAD::EnableVertexAttribArray(vpos_location);
+    GLAD::VertexAttribPointer(
+        vpos_location, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]), (void*) 0
+    );
+    GLAD::EnableVertexAttribArray(vcol_location);
+    GLAD::VertexAttribPointer(
+        vcol_location, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]), (void*) (sizeof(float) * 2)
+    );
+
+    loop {
+        let (width, height) = GLFW::GetFrameBufferSize(window);
+        let ratio = f32(width) / f32(height);
+
+        GLAD::Viewport(0, 0, width, height);
+        GLAD::Clear(GLAD::Bit(:color_buffer));
+
+        let n = Mat4x4::Identity();
+        let m = Mat4x4::RotateZ(n, f32(GLFW::GetTime()));
+        let p = Mat4x4::Ortho(-ratio, ratio, -1f32, 1f32, 1f32, -1f32);
+        let mvp = p * m;
+
+        GLAD::UseProgram(program);
+        GLAD::UniformMatrix4fv(mvp_location, 1, GLAD::Bit(:false), mvp.GLAD::ToFloatPtr());
+        GLAD::DrawArrays(GLAD::Bit(:triangles), 0, 3);
+
+        GLFW::SwapBuffers(window);
+        GLFW::PollEvents();
+
+        if GLFW::WindowShouldClose(window) break;
+    }
+
+    GLFW::DestroyWindow(window);
+
+    GLFW::Terminate();
+
+    return :ok;
 }
